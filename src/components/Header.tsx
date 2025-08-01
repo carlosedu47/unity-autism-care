@@ -31,7 +31,7 @@ const Header = () => {
               <Heart className="w-6 h-6 text-white animate-pulse-soft" />
             </div>
             <div>
-              <h1 className="text-xl font-bold text-foreground">Apoio Autismo</h1>
+              <h1 className="text-xl font-bold text-foreground">juntos pelo autismo</h1>
               <p className="text-sm text-muted-foreground">Juntos pela inclusão</p>
             </div>
           </div>
