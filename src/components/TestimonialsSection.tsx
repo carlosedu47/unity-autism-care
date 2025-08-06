@@ -114,25 +114,7 @@ const TestimonialsSection = () => {
         </div>
 
         {/* Video Testimonial Section */}
-        <div className="mt-16 text-center">
-          <div className="bg-gradient-warm p-8 rounded-2xl shadow-card animate-fade-in-up">
-            <h3 className="text-2xl font-bold text-foreground mb-4">
-              Depoimento em Vídeo
-            </h3>
-            <p className="text-muted-foreground mb-6 max-w-2xl mx-auto">
-              Assista ao depoimento emocionante da família Santos sobre a jornada de 
-              crescimento e desenvolvimento de seu filho Pedro.
-            </p>
-            <div className="w-full max-w-2xl mx-auto aspect-video bg-background rounded-lg border border-border flex items-center justify-center">
-              <div className="text-center">
-                <div className="w-16 h-16 bg-primary rounded-full flex items-center justify-center mx-auto mb-4">
-                  <div className="w-0 h-0 border-l-[8px] border-l-white border-y-[6px] border-y-transparent ml-1"></div>
-                </div>
-                <p className="text-muted-foreground">Clique para assistir</p>
-              </div>
-            </div>
-          </div>
-        </div>
+       
       </div>
     </section>
   );

@@ -34,14 +34,7 @@ const AboutSection = () => {
       number: "1 em 100",
       description: "Crianças são diagnosticadas com autismo no Brasil"
     },
-    {
-      number: "500+",
-      description: "Famílias já atendidas por nossos serviços"
-    },
-    {
-      number: "15 anos",
-      description: "De experiência em apoio especializado"
-    }
+    
   ];
 
   return (

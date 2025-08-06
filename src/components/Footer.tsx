@@ -4,30 +4,10 @@ const Footer = () => {
   const currentYear = new Date().getFullYear();
 
   const footerLinks = {
-    "Recursos": [
-      "Guias para Pais",
-      "Materiais Educativos",
-      "Vídeos Informativos",
-      "Artigos Científicos"
+    "Recurso": [
+      "saiba mais",
+      
     ],
-    "Serviços": [
-      "Avaliação Diagnóstica",
-      "Terapia Individual",
-      "Grupos de Apoio",
-      "Orientação Familiar"
-    ],
-    "Sobre Nós": [
-      "Nossa Missão",
-      "Equipe Especializada",
-      "Parcerias",
-      "Histórias de Sucesso"
-    ],
-    "Contato": [
-      "(11) 4000-0000",
-      "contato@apoioautismo.com.br",
-      "Rua das Flores, 123",
-      "São Paulo - SP"
-    ]
   };
 
   const socialLinks = [
@@ -69,7 +49,7 @@ const Footer = () => {
                 <Heart className="w-6 h-6 text-white animate-pulse-soft" />
               </div>
               <div>
-                <h3 className="text-xl font-bold">Apoio Autismo</h3>
+                <h3 className="text-xl font-bold">Juntos pelo Autismo</h3>
                 <p className="text-sm opacity-80">Juntos pela inclusão</p>
               </div>
             </div>

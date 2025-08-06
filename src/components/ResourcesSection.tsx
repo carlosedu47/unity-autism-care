@@ -12,42 +12,15 @@ const ResourcesSection = () => {
         {
           title: "Guia para Pais de Primeira Viagem",
           description: "Informações essenciais para famílias que receberam o diagnóstico recentemente.",
-          type: "PDF"
+          type: "PDF",
+          
+
         },
-        {
-          title: "Estratégias de Comunicação",
-          description: "Técnicas práticas para melhorar a comunicação com pessoas no espectro.",
-          type: "PDF"
-        },
-        {
-          title: "Rotinas e Estrutura",
-          description: "Como criar ambientes previsíveis e organizados em casa e na escola.",
-          type: "PDF"
-        }
+        
+        
       ]
     },
-    {
-      category: "Apoio Profissional",
-      icon: Phone,
-      color: "hope-green",
-      items: [
-        {
-          title: "Consulta com Especialistas",
-          description: "Conecte-se com psicólogos e terapeutas especializados em autismo.",
-          type: "Agendamento"
-        },
-        {
-          title: "Terapia ABA",
-          description: "Análise do Comportamento Aplicada para desenvolvimento de habilidades.",
-          type: "Presencial"
-        },
-        {
-          title: "Terapia Ocupacional",
-          description: "Desenvolvimento de habilidades motoras e integração sensorial.",
-          type: "Presencial"
-        }
-      ]
-    },
+    
     {
       category: "Recursos Online",
       icon: Video,
@@ -58,16 +31,7 @@ const ResourcesSection = () => {
           description: "Palestras online com especialistas sobre diversos aspectos do autismo.",
           type: "Online"
         },
-        {
-          title: "Grupos de Apoio Virtual",
-          description: "Encontros online para troca de experiências entre famílias.",
-          type: "Online"
-        },
-        {
-          title: "Biblioteca Digital",
-          description: "Acesso a artigos científicos e estudos atualizados sobre TEA.",
-          type: "Online"
-        }
+       
       ]
     },
     {
@@ -75,19 +39,10 @@ const ResourcesSection = () => {
       icon: Calendar,
       color: "calm-purple",
       items: [
-        {
-          title: "Encontros Familiares",
-          description: "Eventos presenciais para socialização e troca de experiências.",
-          type: "Evento"
-        },
-        {
-          title: "Oficinas Práticas",
-          description: "Workshops sobre temas específicos como alimentação e sono.",
-          type: "Workshop"
-        },
+       
         {
           title: "Atividades Adaptadas",
-          description: "Esportes e recreação em ambientes amigáveis ao autismo.",
+          description: "sugestões de esportes para crianças com autismo",
           type: "Atividade"
         }
       ]
@@ -155,12 +110,16 @@ const ResourcesSection = () => {
                             className="flex-shrink-0"
                           >
                             {item.type === "PDF" ? (
-                              <Download className="w-4 h-4" />
-                            ) : item.type === "Online" ? (
-                              <ExternalLink className="w-4 h-4" />
-                            ) : (
-                              <Calendar className="w-4 h-4" />
-                            )}
+  <a href="https://educapes.capes.gov.br/bitstream/capes/722086/4/Guita%20tutorial%20-%20Autismo%20completo.pdf" target="_blank" rel="noopener noreferrer">
+    <ExternalLink className="w-4 h-4" />
+  </a>
+) : item.type === "Online" ? (
+  <a href="https://youtu.be/dgiKusWMulk?si=64KH4Cu9bOHey0lW" target="_blank" rel="noopener noreferrer">
+    <ExternalLink className="w-4 h-4" />
+  </a>
+) : <a href="https://www.esporteeinclusao.com.br/esporte-e-autismo/esportes-criancas-com-autismo/" target="_blank" rel="noopener noreferrer">
+  <Calendar className="w-4 h-4" />
+</a>}
                           </Button>
                         </div>
                       </div>
@@ -173,19 +132,7 @@ const ResourcesSection = () => {
         </div>
 
         {/* Call to Action */}
-        <div className="text-center mt-12 animate-fade-in-up">
-          <div className="bg-gradient-hero p-8 rounded-2xl text-white shadow-card">
-            <h3 className="text-2xl font-bold mb-4">
-              Precisa de Ajuda Personalizada?
-            </h3>
-            <p className="text-lg opacity-90 mb-6 max-w-2xl mx-auto">
-              Nossa equipe está pronta para oferecer suporte individualizado para suas necessidades específicas.
-            </p>
-            <Button variant="secondary" size="lg" className="text-lg px-8">
-              Falar com Especialista
-            </Button>
-          </div>
-        </div>
+     
       </div>
     </section>
   );

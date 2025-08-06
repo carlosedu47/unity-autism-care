@@ -61,19 +61,11 @@ const ContactSection = () => {
       description: "Resposta em até 24 horas",
       color: "warm-orange"
     },
-    {
-      icon: MapPin,
-      title: "Endereço",
-      content: "Rua das Flores, 123 - São Paulo/SP",
-      description: "CEP: 01234-567",
-      color: "calm-purple"
-    }
+    
   ];
 
   const services = [
-    "Primeira consulta",
-    "Avaliação diagnóstica",
-    "Terapia individual",
+  
     "Grupo de apoio familiar",
     "Orientação escolar",
     "Emergência 24h",

@@ -34,9 +34,9 @@ const HeroSection = () => {
         <div className="max-w-4xl mx-auto text-center animate-fade-in-up">
           {/* Main Heading */}
           <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-foreground mb-6">
-            Apoio e <span className="bg-gradient-hero bg-clip-text text-transparent">Suporte</span>
+            Juntos <span className="bg-gradient-hero bg-clip-text text-transparent">Pelo</span>
             <br />
-            para o <span className="text-primary">Autismo</span>
+            <span className="text-primary">Autismo</span>
           </h1>
 
           {/* Subtitle */}
