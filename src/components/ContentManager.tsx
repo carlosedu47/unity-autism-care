@@ -1,39 +1,15 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Plus, Trash2, Save } from "lucide-react";
-
-interface ResourceItem {
-  title: string;
-  description: string;
-  type: string;
-  url: string;
-}
-
-interface ResourceCategory {
-  category: string;
-  icon: string;
-  color: string;
-  items: ResourceItem[];
-}
-
-interface ContentData {
-  resources: ResourceCategory[];
-}
+import { Plus, Trash2, Save, LogOut } from "lucide-react";
+import { useContent } from "@/hooks/useContent";
 
 const ContentManager = () => {
-  const [content, setContent] = useState<ContentData>({ resources: [] });
+  const { content, updateContent, resetToDefault } = useContent();
   const [isEditing, setIsEditing] = useState(false);
-
-  useEffect(() => {
-    fetch('/content.json')
-      .then(response => response.json())
-      .then(data => setContent(data))
-      .catch(error => console.error('Erro ao carregar conteúdo:', error));
-  }, []);
 
   const addNewItem = (categoryIndex: number) => {
     const newContent = { ...content };
@@ -43,32 +19,22 @@ const ContentManager = () => {
       type: "PDF",
       url: ""
     });
-    setContent(newContent);
+    updateContent(newContent);
   };
 
   const removeItem = (categoryIndex: number, itemIndex: number) => {
     const newContent = { ...content };
     newContent.resources[categoryIndex].items.splice(itemIndex, 1);
-    setContent(newContent);
+    updateContent(newContent);
   };
 
   const updateItem = (categoryIndex: number, itemIndex: number, field: string, value: string) => {
     const newContent = { ...content };
     (newContent.resources[categoryIndex].items[itemIndex] as any)[field] = value;
-    setContent(newContent);
+    updateContent(newContent);
   };
 
-  const saveContent = () => {
-    const dataStr = JSON.stringify(content, null, 2);
-    const dataBlob = new Blob([dataStr], { type: 'application/json' });
-    const url = URL.createObjectURL(dataBlob);
-    const link = document.createElement('a');
-    link.href = url;
-    link.download = 'content.json';
-    link.click();
-    URL.revokeObjectURL(url);
-    alert('Arquivo content.json baixado! Substitua o arquivo na pasta public/ do projeto.');
-  };
+
 
   if (!isEditing) {
     return (
@@ -79,9 +45,21 @@ const ContentManager = () => {
           </CardHeader>
           <CardContent>
             <p className="mb-4">Gerencie o conteúdo do site sem mexer no código.</p>
-            <Button onClick={() => setIsEditing(true)}>
-              Editar Conteúdo
-            </Button>
+            <div className="space-x-2">
+              <Button onClick={() => setIsEditing(true)}>
+                Editar Conteúdo
+              </Button>
+              <Button 
+                variant="outline" 
+                onClick={() => {
+                  localStorage.removeItem("adminAuth");
+                  window.location.reload();
+                }}
+              >
+                <LogOut className="w-4 h-4 mr-2" />
+                Sair
+              </Button>
+            </div>
           </CardContent>
         </Card>
       </div>
@@ -93,12 +71,30 @@ const ContentManager = () => {
       <div className="flex justify-between items-center">
         <h1 className="text-2xl font-bold">Gerenciador de Conteúdo</h1>
         <div className="space-x-2">
-          <Button onClick={saveContent} className="bg-green-600 hover:bg-green-700">
-            <Save className="w-4 h-4 mr-2" />
-            Salvar
+          <div className="bg-green-100 text-green-800 px-3 py-2 rounded-md text-sm">
+            ✓ Salvamento Automático
+          </div>
+          <Button 
+            variant="secondary" 
+            onClick={() => {
+              resetToDefault();
+              alert('Conteúdo restaurado!');
+            }}
+          >
+            Restaurar Original
           </Button>
           <Button variant="outline" onClick={() => setIsEditing(false)}>
             Cancelar
+          </Button>
+          <Button 
+            variant="destructive" 
+            onClick={() => {
+              localStorage.removeItem("adminAuth");
+              window.location.reload();
+            }}
+          >
+            <LogOut className="w-4 h-4 mr-2" />
+            Sair
           </Button>
         </div>
       </div>

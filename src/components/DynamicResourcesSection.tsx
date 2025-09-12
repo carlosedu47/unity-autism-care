@@ -1,25 +1,9 @@
 import { useState, useEffect } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { BookOpen, Calendar, Video, ExternalLink } from "lucide-react";
-
-interface ResourceItem {
-  title: string;
-  description: string;
-  type: string;
-  url: string;
-}
-
-interface ResourceCategory {
-  category: string;
-  icon: string;
-  color: string;
-  items: ResourceItem[];
-}
-
-interface ContentData {
-  resources: ResourceCategory[];
-}
+import { BookOpen, Calendar, Video, ExternalLink, Settings } from "lucide-react";
+import { Link } from "react-router-dom";
+import { useContent } from "@/hooks/useContent";
 
 const iconMap = {
   BookOpen,
@@ -28,18 +12,16 @@ const iconMap = {
 };
 
 const DynamicResourcesSection = () => {
-  const [content, setContent] = useState<ContentData | null>(null);
+  const { content } = useContent();
+  const [, setUpdate] = useState(0);
 
   useEffect(() => {
-    fetch('/content.json')
-      .then(response => response.json())
-      .then(data => setContent(data))
-      .catch(error => console.error('Erro ao carregar conteúdo:', error));
+    const handleUpdate = () => setUpdate(prev => prev + 1);
+    window.addEventListener('contentUpdated', handleUpdate);
+    return () => window.removeEventListener('contentUpdated', handleUpdate);
   }, []);
 
-  if (!content) {
-    return <div>Carregando...</div>;
-  }
+
 
   return (
     <section id="resources" className="py-20 bg-muted/30">
@@ -112,6 +94,16 @@ const DynamicResourcesSection = () => {
               </Card>
             );
           })}
+        </div>
+
+        {/* Admin Access Button */}
+        <div className="text-center mt-12">
+          <Link to="/admin">
+            <Button variant="ghost" size="sm" className="text-muted-foreground hover:text-primary">
+              <Settings className="w-4 h-4 mr-2" />
+              Área Administrativa
+            </Button>
+          </Link>
         </div>
       </div>
     </section>
