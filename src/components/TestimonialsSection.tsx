@@ -1,45 +1,43 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { Quote } from "lucide-react";
 
+import { useState, useEffect } from 'react';
+
+interface Testimonial {
+  Nome: string;
+  Cargo: string;
+  Conteudo: string;
+  Avatar: string;
+}
+
 const TestimonialsSection = () => {
-  const testimonials = [
-    {
-      name: "Maria Silva",
-      role: "Mãe do Gabriel, 8 anos",
-      content: "Encontrar este apoio foi transformador para nossa família. Gabriel desenvolveu muito sua comunicação e hoje participa ativamente da escola. A equipe sempre nos orientou com muito carinho e profissionalismo.",
-      avatar: "MS"
-    },
-    {
-      name: "João Santos",
-      role: "Pai da Ana, 12 anos",
-      content: "Os recursos e orientações que recebemos aqui fizeram toda a diferença. Ana agora tem rotinas bem estabelecidas e conseguiu fazer amigos na escola. Somos muito gratos por todo o suporte.",
-      avatar: "JS"
-    },
-    {
-      name: "Dra. Carla Mendes",
-      role: "Psicóloga Especialista",
-      content: "Como profissional, recomendo este trabalho. A abordagem é humanizada e baseada em evidências científicas. As famílias recebem o suporte integral que merecem.",
-      avatar: "CM"
-    },
-    {
-      name: "Roberto Oliveira",
-      role: "Educador e pai do Lucas, 15 anos",
-      content: "O apoio que recebemos não foi apenas para o Lucas, mas para toda nossa família. Aprendemos a entender melhor suas necessidades e hoje ele está no ensino médio com excelente desempenho.",
-      avatar: "RO"
-    },
-    {
-      name: "Sandra Costa",
-      role: "Mãe da Júlia, 6 anos",
-      content: "Júlia era muito retraída e hoje ela brinca, se comunica e demonstra alegria todos os dias. O trabalho de vocês mudou nossa vida. Obrigada por não desistirem dela.",
-      avatar: "SC"
-    },
-    {
-      name: "Prof. André Lima",
-      role: "Terapeuta Ocupacional",
-      content: "A metodologia aplicada aqui é excepcional. Vejo crianças e adolescentes desenvolvendo autonomia e confiança. É muito gratificante fazer parte desta equipe.",
-      avatar: "AL"
+  const [testimonials, setTestimonials] = useState<Testimonial[]>([]);
+  const [stats, setStats] = useState([]);
+
+  useEffect(() => {
+    fetchTestimonials();
+    fetchStats();
+  }, []);
+
+  const fetchTestimonials = async () => {
+    try {
+      const response = await fetch('http://localhost:3001/api/depoimentos');
+      const data = await response.json();
+      setTestimonials(data);
+    } catch (error) {
+      console.error('Erro ao carregar depoimentos:', error);
     }
-  ];
+  };
+
+  const fetchStats = async () => {
+    try {
+      const response = await fetch('http://localhost:3001/api/estatisticas');
+      const data = await response.json();
+      setStats(data);
+    } catch (error) {
+      console.error('Erro ao carregar estatísticas:', error);
+    }
+  };
 
   return (
     <section id="testimonials" className="py-20 bg-background">
@@ -59,7 +57,7 @@ const TestimonialsSection = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
           {testimonials.map((testimonial, index) => (
             <Card 
-              key={testimonial.name}
+              key={testimonial.Nome}
               className="p-6 hover:shadow-card transition-all duration-300 transform hover:scale-[1.02] animate-fade-in-up"
               style={{ animationDelay: `${index * 0.1}s` }}
             >
@@ -71,20 +69,20 @@ const TestimonialsSection = () => {
 
                 {/* Testimonial Content */}
                 <p className="text-muted-foreground mb-6 leading-relaxed italic">
-                  "{testimonial.content}"
+                  "{testimonial.Conteudo}"
                 </p>
 
                 {/* Author Info */}
                 <div className="flex items-center gap-3">
                   <div className="w-12 h-12 bg-gradient-hero rounded-full flex items-center justify-center text-white font-bold">
-                    {testimonial.avatar}
+                    {testimonial.Avatar}
                   </div>
                   <div>
                     <h4 className="font-semibold text-foreground">
-                      {testimonial.name}
+                      {testimonial.Nome}
                     </h4>
                     <p className="text-sm text-muted-foreground">
-                      {testimonial.role}
+                      {testimonial.Cargo}
                     </p>
                   </div>
                 </div>
@@ -95,22 +93,12 @@ const TestimonialsSection = () => {
 
         {/* Impact Stats */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-          <div className="text-center p-6 bg-autism-blue-light rounded-lg animate-fade-in-up">
-            <div className="text-3xl font-bold text-primary mb-2">98%</div>
-            <p className="text-sm text-muted-foreground">Famílias Satisfeitas</p>
-          </div>
-          <div className="text-center p-6 bg-hope-green-light rounded-lg animate-fade-in-up" style={{ animationDelay: '0.1s' }}>
-            <div className="text-3xl font-bold text-hope-green mb-2">500+</div>
-            <p className="text-sm text-muted-foreground">Crianças Atendidas</p>
-          </div>
-          <div className="text-center p-6 bg-warm-orange-light rounded-lg animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
-            <div className="text-3xl font-bold text-warm-orange mb-2">15</div>
-            <p className="text-sm text-muted-foreground">Anos de Experiência</p>
-          </div>
-          <div className="text-center p-6 bg-calm-purple-light rounded-lg animate-fade-in-up" style={{ animationDelay: '0.3s' }}>
-            <div className="text-3xl font-bold text-calm-purple mb-2">24/7</div>
-            <p className="text-sm text-muted-foreground">Suporte Disponível</p>
-          </div>
+          {stats.map((stat: any, index) => (
+            <div key={stat.Nome} className={`text-center p-6 bg-${stat.Cor}-light rounded-lg animate-fade-in-up`} style={{ animationDelay: `${index * 0.1}s` }}>
+              <div className={`text-3xl font-bold text-${stat.Cor} mb-2`}>{stat.Valor}</div>
+              <p className="text-sm text-muted-foreground">{stat.Descricao}</p>
+            </div>
+          ))}
         </div>
 
         {/* Video Testimonial Section */}

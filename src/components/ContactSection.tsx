@@ -23,20 +23,33 @@ const ContactSection = () => {
     }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Aqui seria implementada a lógica de envio do formulário
-    console.log("Formulário enviado:", formData);
-    alert("Mensagem enviada com sucesso! Entraremos em contato em breve.");
-    
-    // Reset form
-    setFormData({
-      name: "",
-      email: "",
-      phone: "",
-      subject: "",
-      message: ""
-    });
+    try {
+      const response = await fetch('http://localhost:3001/api/contato', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+      
+      if (response.ok) {
+        alert("Mensagem enviada com sucesso! Entraremos em contato em breve.");
+        setFormData({
+          name: "",
+          email: "",
+          phone: "",
+          subject: "",
+          message: ""
+        });
+      } else {
+        alert("Erro ao enviar mensagem. Tente novamente.");
+      }
+    } catch (error) {
+      console.error('Erro:', error);
+      alert("Erro ao enviar mensagem. Tente novamente.");
+    }
   };
 
   const contactInfo = [
@@ -65,7 +78,6 @@ const ContactSection = () => {
   ];
 
   const services = [
-  
     "Grupo de apoio familiar",
     "Orientação escolar",
     "Emergência 24h",

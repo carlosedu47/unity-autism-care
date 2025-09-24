@@ -12,12 +12,24 @@ const AdminLogin = ({ onLogin }: AdminLoginProps) => {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
 
-  const handleLogin = () => {
-    if (password === "admin123") {
-      localStorage.setItem("adminAuth", "true");
-      onLogin();
-    } else {
-      setError("Senha incorreta");
+  const handleLogin = async () => {
+    try {
+      const response = await fetch('http://localhost:3001/api/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email: 'admin@unityautismcare.com', password }),
+      });
+      
+      if (response.ok) {
+        localStorage.setItem("adminAuth", "true");
+        onLogin();
+      } else {
+        setError("Senha incorreta");
+      }
+    } catch (error) {
+      setError("Erro de conexão");
     }
   };
 
