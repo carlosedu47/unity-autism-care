@@ -49,14 +49,13 @@ const Header = () => {
             ))}
           </nav>
 
-          {/* CTA Button */}
-          <div className="hidden md:block">
-            <Button
-              variant="hero"
-              onClick={() => scrollToSection("#contact")}
-              className="text-sm"
-            >
-              Precisa de Ajuda?
+          {/* Auth Buttons */}
+          <div className="hidden md:flex items-center gap-2">
+            <Button variant="outline" size="sm" asChild>
+              <a href="/login">Entrar</a>
+            </Button>
+            <Button variant="hero" size="sm" asChild>
+              <a href="/cadastro">Cadastrar</a>
             </Button>
           </div>
 
@@ -82,13 +81,14 @@ const Header = () => {
                   {item.label}
                 </button>
               ))}
-              <Button
-                variant="hero"
-                onClick={() => scrollToSection("#contact")}
-                className="mt-2 self-start"
-              >
-                Precisa de Ajuda?
-              </Button>
+              <div className="flex flex-col gap-2 mt-2">
+                <Button variant="outline" size="sm" asChild>
+                  <a href="/login">Entrar</a>
+                </Button>
+                <Button variant="hero" size="sm" asChild>
+                  <a href="/cadastro">Cadastrar</a>
+                </Button>
+              </div>
             </nav>
           </div>
         )}
