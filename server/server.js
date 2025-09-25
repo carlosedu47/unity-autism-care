@@ -126,7 +126,7 @@ app.post('/api/login', async (req, res) => {
 // Cadastro
 app.post('/api/cadastro', async (req, res) => {
   try {
-    const { nome, email, senha } = req.body;
+    const { nome, email, senha, tipo = 'Usuario' } = req.body;
     
     // Validações
     if (!nome || nome.length < 2) {
@@ -153,12 +153,15 @@ app.post('/api/cadastro', async (req, res) => {
       return res.status(400).json({ error: 'Email já cadastrado' });
     }
     
+    // Validar tipo
+    const tipoValido = ['Usuario', 'Admin'].includes(tipo) ? tipo : 'Usuario';
+    
     // Inserir novo usuário
     await pool.request()
       .input('Nome', sql.NVarChar, nome)
       .input('Email', sql.NVarChar, email)
       .input('Senha', sql.NVarChar, senha)
-      .input('Tipo', sql.NVarChar, 'Editor')
+      .input('Tipo', sql.NVarChar, tipoValido)
       .query('INSERT INTO Usuarios (Nome, Email, Senha, Tipo) VALUES (@Nome, @Email, @Senha, @Tipo)');
     
     res.json({ success: true, message: 'Usuário cadastrado com sucesso' });
@@ -197,7 +200,7 @@ app.put('/api/usuarios/:id/tipo', async (req, res) => {
     const { id } = req.params;
     const { tipo } = req.body;
     
-    if (!['Admin', 'Editor'].includes(tipo)) {
+    if (!['Admin', 'Usuario'].includes(tipo)) {
       return res.status(400).json({ error: 'Tipo inválido' });
     }
     

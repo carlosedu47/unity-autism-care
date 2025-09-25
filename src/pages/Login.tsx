@@ -16,7 +16,7 @@ const Login = () => {
     return emailRegex.test(email);
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     
     if (!validateEmail(formData.email)) {
@@ -29,22 +29,25 @@ const Login = () => {
       return;
     }
 
-    try {
-      const response = await fetch('http://localhost:3001/api/login', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData),
-      });
-      
-      if (response.ok) {
-        const data = await response.json();
-        localStorage.setItem("userAuth", JSON.stringify(data.user));
-        navigate("/dashboard");
-      } else {
-        setError("Email ou senha incorretos");
-      }
-    } catch (error) {
-      setError("Erro de conexão");
+    // Buscar no localStorage
+    const usuarios = JSON.parse(localStorage.getItem('usuarios') || '[]');
+    const usuario = usuarios.find((u: any) => 
+      u.email.toLowerCase() === formData.email.toLowerCase() && 
+      u.senha === formData.password &&
+      u.ativo
+    );
+    
+    if (usuario) {
+      const userData = {
+        Id: usuario.id,
+        Nome: usuario.nome,
+        Email: usuario.email,
+        Tipo: usuario.tipo
+      };
+      localStorage.setItem("userAuth", JSON.stringify(userData));
+      navigate("/dashboard");
+    } else {
+      setError("Email ou senha incorretos");
     }
   };
 

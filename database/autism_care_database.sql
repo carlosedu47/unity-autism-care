@@ -15,13 +15,13 @@ GO
 -- TABELAS PRINCIPAIS
 -- =============================================
 
--- Tabela de Usuários Administrativos
+-- Tabela de Usuários
 CREATE TABLE Usuarios (
     Id INT IDENTITY(1,1) PRIMARY KEY,
     Nome NVARCHAR(100) NOT NULL,
     Email NVARCHAR(100) UNIQUE NOT NULL,
     Senha NVARCHAR(255) NOT NULL,
-    Tipo NVARCHAR(20) DEFAULT 'Admin' CHECK (Tipo IN ('Admin', 'Editor')),
+    Tipo NVARCHAR(20) DEFAULT 'Usuario' CHECK (Tipo IN ('Admin', 'Usuario')),
     Ativo BIT DEFAULT 1,
     DataCriacao DATETIME2 DEFAULT GETDATE(),
     UltimoLogin DATETIME2
@@ -360,10 +360,10 @@ GO
 CREATE ROLE db_admin_autism_care;
 GRANT SELECT, INSERT, UPDATE, DELETE ON SCHEMA::dbo TO db_admin_autism_care;
 
--- Criar role para editores (apenas leitura e inserção de contatos)
-CREATE ROLE db_editor_autism_care;
-GRANT SELECT ON SCHEMA::dbo TO db_editor_autism_care;
-GRANT INSERT ON Contatos TO db_editor_autism_care;
+-- Criar role para usuários (apenas leitura e inserção de contatos)
+CREATE ROLE db_usuario_autism_care;
+GRANT SELECT ON SCHEMA::dbo TO db_usuario_autism_care;
+GRANT INSERT ON Contatos TO db_usuario_autism_care;
 
 PRINT 'Banco de dados Unity Autism Care criado com sucesso!';
 PRINT 'Usuário padrão: admin@unityautismcare.com / admin123';

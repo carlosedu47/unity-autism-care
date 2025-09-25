@@ -19,14 +19,15 @@ const Dashboard = () => {
     fetchStats();
   }, []);
 
-  const fetchStats = async () => {
-    try {
-      const response = await fetch('http://localhost:3001/api/dashboard');
-      const data = await response.json();
-      setStats(data);
-    } catch (error) {
-      console.error('Erro ao carregar estatísticas:', error);
-    }
+  const fetchStats = () => {
+    // Dados mock para dashboard
+    const mockStats = {
+      ContatosPendentes: 5,
+      DepoimentosPendentes: 2,
+      RecursosAtivos: 12,
+      ContatosUltimos30Dias: 23
+    };
+    setStats(mockStats);
   };
 
   const handleLogout = () => {
@@ -44,7 +45,7 @@ const Dashboard = () => {
             <h1 className="text-3xl font-bold">Dashboard</h1>
             <p className="text-muted-foreground">Bem-vindo, {user.Nome}</p>
             <span className={`px-2 py-1 rounded text-xs ${user.Tipo === 'Admin' ? 'bg-red-100 text-red-800' : 'bg-blue-100 text-blue-800'}`}>
-              {user.Tipo}
+              {user.Tipo === 'Usuario' ? 'Usuário' : user.Tipo}
             </span>
           </div>
           <Button onClick={handleLogout} variant="outline">

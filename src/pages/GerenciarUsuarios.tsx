@@ -25,45 +25,30 @@ const GerenciarUsuarios = () => {
     fetchUsuarios();
   }, []);
 
-  const fetchUsuarios = async () => {
-    try {
-      const response = await fetch('http://localhost:3001/api/usuarios');
-      const data = await response.json();
-      setUsuarios(data);
-    } catch (error) {
-      console.error('Erro ao carregar usuários:', error);
+  const fetchUsuarios = () => {
+    const usuarios = JSON.parse(localStorage.getItem('usuarios') || '[]');
+    setUsuarios(usuarios);
+  };
+
+  const alterarTipo = (id: number, novoTipo: string) => {
+    const usuarios = JSON.parse(localStorage.getItem('usuarios') || '[]');
+    const usuarioIndex = usuarios.findIndex((u: any) => u.id === id);
+    
+    if (usuarioIndex !== -1) {
+      usuarios[usuarioIndex].tipo = novoTipo;
+      localStorage.setItem('usuarios', JSON.stringify(usuarios));
+      fetchUsuarios();
     }
   };
 
-  const alterarTipo = async (id: number, novoTipo: string) => {
-    try {
-      const response = await fetch(`http://localhost:3001/api/usuarios/${id}/tipo`, {
-        method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ tipo: novoTipo }),
-      });
-      
-      if (response.ok) {
-        fetchUsuarios();
-      }
-    } catch (error) {
-      console.error('Erro ao alterar tipo:', error);
-    }
-  };
-
-  const alterarStatus = async (id: number, ativo: boolean) => {
-    try {
-      const response = await fetch(`http://localhost:3001/api/usuarios/${id}/status`, {
-        method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ ativo }),
-      });
-      
-      if (response.ok) {
-        fetchUsuarios();
-      }
-    } catch (error) {
-      console.error('Erro ao alterar status:', error);
+  const alterarStatus = (id: number, ativo: boolean) => {
+    const usuarios = JSON.parse(localStorage.getItem('usuarios') || '[]');
+    const usuarioIndex = usuarios.findIndex((u: any) => u.id === id);
+    
+    if (usuarioIndex !== -1) {
+      usuarios[usuarioIndex].ativo = ativo;
+      localStorage.setItem('usuarios', JSON.stringify(usuarios));
+      fetchUsuarios();
     }
   };
 
@@ -97,7 +82,7 @@ const GerenciarUsuarios = () => {
                       <p className="text-sm text-muted-foreground">{usuario.Email}</p>
                       <div className="flex gap-2 mt-1">
                         <Badge variant={usuario.Tipo === 'Admin' ? 'destructive' : 'default'}>
-                          {usuario.Tipo}
+                          {usuario.Tipo === 'Usuario' ? 'Usuário' : usuario.Tipo}
                         </Badge>
                         <Badge variant={usuario.Ativo ? 'default' : 'secondary'}>
                           {usuario.Ativo ? 'Ativo' : 'Inativo'}
@@ -110,10 +95,10 @@ const GerenciarUsuarios = () => {
                     <Button
                       size="sm"
                       variant="outline"
-                      onClick={() => alterarTipo(usuario.Id, usuario.Tipo === 'Admin' ? 'Editor' : 'Admin')}
+                      onClick={() => alterarTipo(usuario.Id, usuario.Tipo === 'Admin' ? 'Usuario' : 'Admin')}
                       disabled={usuario.Id === user.Id}
                     >
-                      {usuario.Tipo === 'Admin' ? 'Tornar Editor' : 'Tornar Admin'}
+                      {usuario.Tipo === 'Admin' ? 'Tornar Usuário' : 'Tornar Admin'}
                     </Button>
                     
                     <Button

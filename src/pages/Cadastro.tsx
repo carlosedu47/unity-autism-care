@@ -3,7 +3,8 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { UserPlus } from "lucide-react";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { UserPlus, Shield, User } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 
 const Cadastro = () => {
@@ -11,7 +12,8 @@ const Cadastro = () => {
     nome: "",
     email: "",
     senha: "",
-    confirmarSenha: ""
+    confirmarSenha: "",
+    tipo: "Usuario"
   });
   const [error, setError] = useState("");
   const navigate = useNavigate();
@@ -25,7 +27,7 @@ const Cadastro = () => {
     return password.length >= 8 && /[A-Z]/.test(password) && /[0-9]/.test(password);
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     
     if (!validateEmail(formData.email)) {
@@ -43,27 +45,30 @@ const Cadastro = () => {
       return;
     }
 
-    try {
-      const response = await fetch('http://localhost:3001/api/cadastro', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          nome: formData.nome,
-          email: formData.email,
-          senha: formData.senha
-        }),
-      });
-      
-      if (response.ok) {
-        alert("Cadastro realizado com sucesso!");
-        navigate("/login");
-      } else {
-        const data = await response.json();
-        setError(data.error || "Erro ao cadastrar");
-      }
-    } catch (error) {
-      setError("Erro de conexão");
+    // Salvar no localStorage
+    const usuarios = JSON.parse(localStorage.getItem('usuarios') || '[]');
+    
+    // Verificar se email já existe
+    if (usuarios.find((u: any) => u.email === formData.email)) {
+      setError("Email já cadastrado");
+      return;
     }
+    
+    const novoUsuario = {
+      id: Date.now(),
+      nome: formData.nome,
+      email: formData.email,
+      senha: formData.senha,
+      tipo: formData.tipo,
+      ativo: true,
+      dataCriacao: new Date().toISOString()
+    };
+    
+    usuarios.push(novoUsuario);
+    localStorage.setItem('usuarios', JSON.stringify(usuarios));
+    
+    alert("Cadastro realizado com sucesso!");
+    navigate("/login");
   };
 
   return (
@@ -123,6 +128,31 @@ const Cadastro = () => {
                 value={formData.confirmarSenha}
                 onChange={(e) => setFormData({...formData, confirmarSenha: e.target.value})}
               />
+            </div>
+            <div>
+              <Label htmlFor="tipo">Tipo de Conta</Label>
+              <Select value={formData.tipo} onValueChange={(value) => setFormData({...formData, tipo: value})}>
+                <SelectTrigger>
+                  <SelectValue placeholder="Selecione o tipo" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="Usuario">
+                    <div className="flex items-center gap-2">
+                      <User className="w-4 h-4" />
+                      Usuário Normal
+                    </div>
+                  </SelectItem>
+                  <SelectItem value="Admin">
+                    <div className="flex items-center gap-2">
+                      <Shield className="w-4 h-4" />
+                      Administrador
+                    </div>
+                  </SelectItem>
+                </SelectContent>
+              </Select>
+              <p className="text-xs text-muted-foreground mt-1">
+                {formData.tipo === 'Admin' ? 'Pode gerenciar conteúdo e usuários' : 'Acesso básico ao sistema'}
+              </p>
             </div>
             {error && <p className="text-red-500 text-sm">{error}</p>}
             <Button type="submit" className="w-full">Cadastrar</Button>
