@@ -1,4 +1,4 @@
--- =============================================
+ -- =============================================
 -- Banco de Dados: Unity Autism Care
 -- Sistema de Gestão para Site de Apoio ao Autismo
 -- SGBD: SQL Server

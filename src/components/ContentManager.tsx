@@ -6,6 +6,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Plus, Trash2, Save, LogOut } from "lucide-react";
 import { useContent } from "@/hooks/useContent";
+import { showSuccess } from "@/utils/notifications";
 
 const ContentManager = () => {
   const { content, updateContent, resetToDefault } = useContent();
@@ -78,7 +79,7 @@ const ContentManager = () => {
             variant="secondary" 
             onClick={() => {
               resetToDefault();
-              alert('Conteúdo restaurado!');
+              showSuccess('Conteúdo restaurado para o padrão!');
             }}
           >
             Restaurar Original

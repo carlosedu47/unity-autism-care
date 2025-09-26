@@ -45,7 +45,11 @@ const Login = () => {
         Tipo: usuario.tipo
       };
       localStorage.setItem("userAuth", JSON.stringify(userData));
-      navigate("/dashboard");
+      if (usuario.tipo === 'Admin') {
+        navigate("/dashboard");
+      } else {
+        navigate("/");
+      }
     } else {
       setError("Email ou senha incorretos");
     }

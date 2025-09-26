@@ -3,6 +3,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Users, MessageSquare, FileText, Settings, LogOut } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import { showInfo } from "@/utils/notifications";
 
 const Dashboard = () => {
   const [user, setUser] = useState<any>(null);
@@ -108,7 +109,7 @@ const Dashboard = () => {
               <p className="text-sm text-muted-foreground mb-4">
                 Visualizar e responder mensagens recebidas
               </p>
-              <Button className="w-full">Acessar</Button>
+              <Button className="w-full" onClick={() => showInfo('Funcionalidade de gerenciamento de contatos em desenvolvimento')}>Acessar</Button>
             </CardContent>
           </Card>
 
@@ -123,7 +124,7 @@ const Dashboard = () => {
               <p className="text-sm text-muted-foreground mb-4">
                 Adicionar, editar e organizar recursos
               </p>
-              <Button className="w-full">Acessar</Button>
+              <Button className="w-full" onClick={() => navigate('/admin')}>Acessar</Button>
             </CardContent>
           </Card>
 
@@ -139,7 +140,7 @@ const Dashboard = () => {
                 <p className="text-sm text-muted-foreground mb-4">
                   Administrar usuários e permissões
                 </p>
-                <Button className="w-full" onClick={() => window.location.href = '/gerenciar-usuarios'}>Acessar</Button>
+                <Button className="w-full" onClick={() => navigate('/gerenciar-usuarios')}>Acessar</Button>
               </CardContent>
             </Card>
           )}

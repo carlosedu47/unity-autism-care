@@ -6,6 +6,7 @@ import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { UserPlus, Shield, User } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
+import { showSuccess, showError } from "@/utils/notifications";
 
 const Cadastro = () => {
   const [formData, setFormData] = useState({
@@ -67,8 +68,8 @@ const Cadastro = () => {
     usuarios.push(novoUsuario);
     localStorage.setItem('usuarios', JSON.stringify(usuarios));
     
-    alert("Cadastro realizado com sucesso!");
-    navigate("/login");
+    showSuccess("Cadastro realizado com sucesso!");
+    navigate("/");
   };
 
   return (

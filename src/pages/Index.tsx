@@ -5,6 +5,7 @@ import DynamicResourcesSection from "@/components/DynamicResourcesSection";
 import TestimonialsSection from "@/components/TestimonialsSection";
 import ContactSection from "@/components/ContactSection";
 import Footer from "@/components/Footer";
+import BackToTop from "@/components/BackToTop";
 
 const Index = () => {
   return (
@@ -16,6 +17,7 @@ const Index = () => {
       <TestimonialsSection />
       <ContactSection />
       <Footer />
+      <BackToTop />
     </div>
   );
 };

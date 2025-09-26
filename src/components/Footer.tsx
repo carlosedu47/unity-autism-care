@@ -1,4 +1,5 @@
 import { Heart, Facebook, Instagram, Youtube, Mail } from "lucide-react";
+import { showInfo } from "@/utils/notifications";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -63,14 +64,14 @@ const Footer = () => {
               {socialLinks.map((social) => {
                 const IconComponent = social.icon;
                 return (
-                  <a
+                  <button
                     key={social.label}
-                    href={social.href}
+                    onClick={() => showInfo(`Siga-nos no ${social.label}! Link em breve.`)}
                     className={`w-10 h-10 rounded-full bg-background/10 flex items-center justify-center transition-all duration-300 ${social.color} hover:bg-background/20 hover:scale-110`}
                     aria-label={social.label}
                   >
                     <IconComponent className="w-5 h-5" />
-                  </a>
+                  </button>
                 );
               })}
             </div>
@@ -113,7 +114,10 @@ const Footer = () => {
                 placeholder="Seu e-mail"
                 className="flex-1 px-4 py-2 rounded-md bg-background/10 border border-background/20 text-white placeholder:text-background/60 focus:outline-none focus:border-background/40"
               />
-              <button className="px-6 py-2 bg-gradient-hero rounded-md hover:opacity-90 transition-opacity duration-300 font-medium">
+              <button 
+                className="px-6 py-2 bg-gradient-hero rounded-md hover:opacity-90 transition-opacity duration-300 font-medium"
+                onClick={() => showInfo('Obrigado pelo interesse! Em breve implementaremos a newsletter.')}
+              >
                 Inscrever
               </button>
             </div>
@@ -149,15 +153,15 @@ const Footer = () => {
           </div>
           
           <div className="flex gap-6 text-sm">
-            <a href="#" className="opacity-80 hover:opacity-100 transition-opacity">
+            <button onClick={() => showInfo('Política de Privacidade em desenvolvimento')} className="opacity-80 hover:opacity-100 transition-opacity">
               Política de Privacidade
-            </a>
-            <a href="#" className="opacity-80 hover:opacity-100 transition-opacity">
+            </button>
+            <button onClick={() => showInfo('Termos de Uso em desenvolvimento')} className="opacity-80 hover:opacity-100 transition-opacity">
               Termos de Uso
-            </a>
-            <a href="#" className="opacity-80 hover:opacity-100 transition-opacity">
+            </button>
+            <button onClick={() => showInfo('Página de Acessibilidade em desenvolvimento')} className="opacity-80 hover:opacity-100 transition-opacity">
               Acessibilidade
-            </a>
+            </button>
           </div>
         </div>
 

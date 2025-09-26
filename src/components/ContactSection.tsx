@@ -5,6 +5,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { MapPin, Phone, Mail, Clock, MessageCircle, Send } from "lucide-react";
 import { useState } from "react";
+import { showSuccess, showError } from "@/utils/notifications";
 
 const ContactSection = () => {
   const [formData, setFormData] = useState({
@@ -35,7 +36,7 @@ const ContactSection = () => {
       });
       
       if (response.ok) {
-        alert("Mensagem enviada com sucesso! Entraremos em contato em breve.");
+        showSuccess("Mensagem enviada com sucesso! Entraremos em contato em breve.");
         setFormData({
           name: "",
           email: "",
@@ -44,11 +45,11 @@ const ContactSection = () => {
           message: ""
         });
       } else {
-        alert("Erro ao enviar mensagem. Tente novamente.");
+        showError("Erro ao enviar mensagem. Tente novamente.");
       }
     } catch (error) {
       console.error('Erro:', error);
-      alert("Erro ao enviar mensagem. Tente novamente.");
+      showError("Erro ao enviar mensagem. Tente novamente.");
     }
   };
 
@@ -246,7 +247,12 @@ const ContactSection = () => {
                   Para situações urgentes que necessitam apoio imediato, nossa equipe 
                   está disponível 24 horas por dia, 7 dias por semana.
                 </p>
-                <Button variant="secondary" size="lg" className="w-full">
+                <Button 
+                  variant="secondary" 
+                  size="lg" 
+                  className="w-full"
+                  onClick={() => window.open('tel:+5511999999999', '_self')}
+                >
                   (11) 99999-9999 - Emergência
                 </Button>
               </CardContent>

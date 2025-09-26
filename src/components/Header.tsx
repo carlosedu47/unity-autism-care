@@ -51,11 +51,11 @@ const Header = () => {
 
           {/* Auth Buttons */}
           <div className="hidden md:flex items-center gap-2">
-            <Button variant="outline" size="sm" asChild>
-              <a href="/login">Entrar</a>
+            <Button variant="outline" size="sm" onClick={() => window.location.href = '/login'}>
+              Entrar
             </Button>
-            <Button variant="hero" size="sm" asChild>
-              <a href="/cadastro">Cadastrar</a>
+            <Button variant="hero" size="sm" onClick={() => window.location.href = '/cadastro'}>
+              Cadastrar
             </Button>
           </div>
 
@@ -82,11 +82,11 @@ const Header = () => {
                 </button>
               ))}
               <div className="flex flex-col gap-2 mt-2">
-                <Button variant="outline" size="sm" asChild>
-                  <a href="/login">Entrar</a>
+                <Button variant="outline" size="sm" onClick={() => window.location.href = '/login'}>
+                  Entrar
                 </Button>
-                <Button variant="hero" size="sm" asChild>
-                  <a href="/cadastro">Cadastrar</a>
+                <Button variant="hero" size="sm" onClick={() => window.location.href = '/cadastro'}>
+                  Cadastrar
                 </Button>
               </div>
             </nav>

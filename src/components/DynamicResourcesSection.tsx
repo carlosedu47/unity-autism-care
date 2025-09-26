@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { BookOpen, Calendar, Video, ExternalLink, Settings } from "lucide-react";
+import { Input } from "@/components/ui/input";
+import { BookOpen, Calendar, Video, ExternalLink, Settings, Search } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useContent } from "@/hooks/useContent";
 
@@ -14,12 +15,30 @@ const iconMap = {
 const DynamicResourcesSection = () => {
   const { content } = useContent();
   const [, setUpdate] = useState(0);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [filteredContent, setFilteredContent] = useState(content.resources);
 
   useEffect(() => {
     const handleUpdate = () => setUpdate(prev => prev + 1);
     window.addEventListener('contentUpdated', handleUpdate);
     return () => window.removeEventListener('contentUpdated', handleUpdate);
   }, []);
+
+  useEffect(() => {
+    if (!searchTerm) {
+      setFilteredContent(content.resources);
+    } else {
+      const filtered = content.resources.map(category => ({
+        ...category,
+        items: category.items.filter(item => 
+          item.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          item.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          item.type.toLowerCase().includes(searchTerm.toLowerCase())
+        )
+      })).filter(category => category.items.length > 0);
+      setFilteredContent(filtered);
+    }
+  }, [searchTerm, content.resources]);
 
 
 
@@ -96,15 +115,6 @@ const DynamicResourcesSection = () => {
           })}
         </div>
 
-        {/* Admin Access Button */}
-        <div className="text-center mt-12">
-          <Link to="/admin">
-            <Button variant="ghost" size="sm" className="text-muted-foreground hover:text-primary">
-              <Settings className="w-4 h-4 mr-2" />
-              Área Administrativa
-            </Button>
-          </Link>
-        </div>
       </div>
     </section>
   );
