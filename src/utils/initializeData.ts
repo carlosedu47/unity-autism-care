@@ -3,110 +3,138 @@ export const initializeData = () => {
   const recursosIniciais = [
     {
       id: 1,
-      titulo: "Cartilha dos Direitos da Pessoa com Autismo",
-      descricao: "Cartilha oficial do governo brasileiro sobre direitos e benefícios para pessoas com TEA.",
-      tipo: "PDF",
+      titulo: "Leis e Direitos - Autismo e Realidade",
+      descricao: "Informações completas sobre leis e direitos das pessoas com Transtorno do Espectro Autista no Brasil.",
+      tipo: "Link",
       categoria: "Profissional",
-      url: "https://www.gov.br/mdh/pt-br/navegue-por-temas/pessoa-com-deficiencia/publicacoes/cartilha-direitos-da-pessoa-com-autismo.pdf",
+      url: "https://autismoerealidade.org.br/convivendo-com-o-tea/leis-e-direitos/",
       ativo: true,
       dataCriacao: new Date().toISOString(),
       autor: "Administrador"
     },
     {
-      id: 2,
-      titulo: "Autismo: Orientações para Pais",
-      descricao: "Vídeo educativo do Hospital Israelita Albert Einstein sobre orientações para famílias.",
+      id: 18,
+      titulo: "Direitos das Pessoas com Autismo no Brasil",
+      descricao: "Guia detalhado sobre como funcionam as principais leis que garantem direitos às pessoas com autismo no país.",
+      tipo: "Link",
+      categoria: "Profissional",
+      url: "https://www.canalautismo.com.br/artigos/direitos-das-pessoas-com-autismo-no-brasil-entenda-como-funcionam-as-principais-leis/#google_vignette",
+      ativo: true,
+      dataCriacao: new Date().toISOString(),
+      autor: "Administrador"
+    },
+    {
+      id: 19,
+      titulo: "Direitos da Pessoa com Autismo - Explicação Completa",
+      descricao: "Vídeo educativo explicando de forma clara os direitos garantidos por lei às pessoas com Transtorno do Espectro Autista.",
       tipo: "Video",
-      categoria: "Familiar",
-      url: "https://www.youtube.com/watch?v=wmKTmkk7gns",
+      categoria: "Profissional",
+      url: "https://youtu.be/-JWtPeWe0GA?si=8kDNeXVcgq_awF1s",
       ativo: true,
       dataCriacao: new Date().toISOString(),
       autor: "Administrador"
     },
-    {
-      id: 3,
-      titulo: "Atividades Lúdicas para Autismo",
-      descricao: "Sugestões práticas de brincadeiras e atividades sensoriais para crianças com TEA.",
-      tipo: "Link",
-      categoria: "Terapeutico",
-      url: "https://neurosaber.com.br/10-atividades-ludicas-para-criancas-com-autismo/",
-      ativo: true,
-      dataCriacao: new Date().toISOString(),
-      autor: "Administrador"
-    },
-    {
-      id: 4,
-      titulo: "Inclusão Escolar",
-      descricao: "Orientações para professores e escolas sobre como promover a inclusão de alunos com autismo.",
-      tipo: "Link",
-      categoria: "Educacional",
-      url: "https://diversa.org.br/artigos/inclusao-escolar-de-pessoas-com-autismo/",
-      ativo: true,
-      dataCriacao: new Date().toISOString(),
-      autor: "Administrador"
-    },
-    {
-      id: 5,
-      titulo: "Rotina Visual para Autismo",
-      descricao: "Como criar e usar rotinas visuais para ajudar crianças com autismo no dia a dia.",
-      tipo: "Link",
-      categoria: "Familiar",
-      url: "https://institutopensi.org.br/blog-saude-infantil/rotina-visual-para-criancas-com-autismo/",
-      ativo: true,
-      dataCriacao: new Date().toISOString(),
-      autor: "Administrador"
-    },
-    {
-      id: 6,
-      titulo: "Sinais Precoces do Autismo",
-      descricao: "Vídeo informativo sobre identificação precoce dos sinais do Transtorno do Espectro Autista.",
-      tipo: "Video",
-      categoria: "Educacional",
-      url: "https://www.youtube.com/watch?v=YbskKXrBqh0",
-      ativo: true,
-      dataCriacao: new Date().toISOString(),
-      autor: "Administrador"
-    },
-    {
-      id: 7,
-      titulo: "Terapia ABA - Fundamentos",
-      descricao: "Introdução aos princípios da Análise do Comportamento Aplicada no tratamento do autismo.",
-      tipo: "Video",
-      categoria: "Terapeutico",
-      url: "https://www.youtube.com/watch?v=Lq5U3TzQcWs",
-      ativo: true,
-      dataCriacao: new Date().toISOString(),
-      autor: "Administrador"
-    },
-    {
-      id: 8,
-      titulo: "Esportes Adaptados",
-      descricao: "Sugestões de atividades físicas e esportes adequados para crianças e jovens com autismo.",
-      tipo: "Link",
-      categoria: "Familiar",
-      url: "https://www.esporteeinclusao.com.br/esporte-e-autismo/esportes-criancas-com-autismo/",
-      ativo: true,
-      dataCriacao: new Date().toISOString(),
-      autor: "Administrador"
-    },
+
+
+
+
+
+
     {
       id: 9,
-      titulo: "Atividades Sensoriais",
-      descricao: "Conjunto de atividades para estimulação sensorial adequada para crianças com autismo.",
-      tipo: "Atividade",
+      titulo: "Principais Terapias no Autismo",
+      descricao: "Guia completo sobre as principais terapias utilizadas no tratamento do autismo e como elas ajudam no desenvolvimento.",
+      tipo: "Link",
       categoria: "Terapeutico",
-      url: "https://www.tempojunto.com/2016/04/07/10-brincadeiras-sensoriais-para-criancas-com-autismo/",
+      url: "https://neuroconecta.com.br/quais-sao-as-principais-terapias-no-autismo-e-como-elas-ajudam-no-desenvolvimento/",
+      ativo: true,
+      dataCriacao: new Date().toISOString(),
+      autor: "Administrador"
+    },
+    {
+      id: 14,
+      titulo: "5 Tipos de Terapia para Crianças Autistas",
+      descricao: "Artigo detalhado sobre os diferentes tipos de terapia disponíveis para crianças com Transtorno do Espectro Autista.",
+      tipo: "Link",
+      categoria: "Terapeutico",
+      url: "https://institutoneurosaber.com.br/artigos/5-tipos-de-terapia-para-criancas-autistas/",
+      ativo: true,
+      dataCriacao: new Date().toISOString(),
+      autor: "Administrador"
+    },
+    {
+      id: 15,
+      titulo: "Terapias para Autismo - Guia Completo",
+      descricao: "Vídeo educativo sobre as diferentes abordagens terapêuticas utilizadas no tratamento do autismo.",
+      tipo: "Video",
+      categoria: "Terapeutico",
+      url: "https://youtu.be/YD-vkaTv6js?si=nHTxvuoW6gEYNocS",
       ativo: true,
       dataCriacao: new Date().toISOString(),
       autor: "Administrador"
     },
     {
       id: 10,
-      titulo: "Rotinas e Estruturação",
-      descricao: "Como criar rotinas estruturadas que ajudam no desenvolvimento e bem-estar de crianças com autismo.",
+      titulo: "O Papel da Família no Suporte a Crianças com Autismo",
+      descricao: "Guia completo sobre como a família pode oferecer o melhor suporte para crianças com Transtorno do Espectro Autista.",
       tipo: "Link",
       categoria: "Familiar",
-      url: "https://institutopensi.org.br/blog-saude-infantil/rotina-para-criancas-com-autismo/",
+      url: "https://www.redepsi.com.br/2023/10/25/o-papel-da-familia-no-suporte-a-criancas-com-autismo-um-guia-completo/",
+      ativo: true,
+      dataCriacao: new Date().toISOString(),
+      autor: "Administrador"
+    },
+    {
+      id: 16,
+      titulo: "Autismo e Família - A Importância do Núcleo Familiar",
+      descricao: "Artigo sobre a importância do núcleo familiar na vida de crianças autistas e como fortalecer esses laços.",
+      tipo: "Link",
+      categoria: "Familiar",
+      url: "https://www.familiaejuventude.df.gov.br/autismo-e-familia-a-importancia-do-nucleo-familiar-na-vida-de-criancas-autistas/",
+      ativo: true,
+      dataCriacao: new Date().toISOString(),
+      autor: "Administrador"
+    },
+    {
+      id: 17,
+      titulo: "Como a Família Pode Ajudar Crianças com Autismo",
+      descricao: "Vídeo educativo sobre estratégias práticas que a família pode usar para apoiar o desenvolvimento de crianças com TEA.",
+      tipo: "Video",
+      categoria: "Familiar",
+      url: "https://youtu.be/hgL34Q2cfcs?si=oMVAxTE1TJRm2EyE",
+      ativo: true,
+      dataCriacao: new Date().toISOString(),
+      autor: "Administrador"
+    },
+    {
+      id: 11,
+      titulo: "Inclusão e Socialização de Alunos com TEA",
+      descricao: "Guia prático sobre como começar o processo de inclusão e socialização de estudantes com autismo.",
+      tipo: "Link",
+      categoria: "Educacional",
+      url: "https://fazeducacao.com.br/inclusao-e-socializacao-de-alunos-com-tea-por-onde-comecar/",
+      ativo: true,
+      dataCriacao: new Date().toISOString(),
+      autor: "Administrador"
+    },
+    {
+      id: 12,
+      titulo: "Autismo na Escola - Práticas Pedagógicas",
+      descricao: "Estratégias e práticas pedagógicas eficazes para trabalhar com alunos autistas em sala de aula.",
+      tipo: "Link",
+      categoria: "Educacional",
+      url: "https://educacional.com.br/praticas-pedagogicas/autismo-na-escola/",
+      ativo: true,
+      dataCriacao: new Date().toISOString(),
+      autor: "Administrador"
+    },
+    {
+      id: 13,
+      titulo: "Autismo e Educação Inclusiva",
+      descricao: "Vídeo educativo sobre estratégias de educação inclusiva para estudantes com Transtorno do Espectro Autista.",
+      tipo: "Video",
+      categoria: "Educacional",
+      url: "https://youtu.be/H33UFg94PEI?si=Z2YhPt4Z8rcJFsYT",
       ativo: true,
       dataCriacao: new Date().toISOString(),
       autor: "Administrador"
@@ -171,10 +199,8 @@ export const initializeData = () => {
   const recursosExistentes = localStorage.getItem('recursos');
   const depoimentosExistentes = localStorage.getItem('depoimentos');
 
-  // Adicionar recursos se não existirem
-  if (!recursosExistentes || JSON.parse(recursosExistentes).length === 0) {
-    localStorage.setItem('recursos', JSON.stringify(recursosIniciais));
-  }
+  // Sempre garantir que os recursos estejam atualizados
+  localStorage.setItem('recursos', JSON.stringify(recursosIniciais));
 
   // Adicionar depoimentos se não existirem
   if (!depoimentosExistentes || JSON.parse(depoimentosExistentes).length === 0) {
@@ -182,5 +208,7 @@ export const initializeData = () => {
   }
 
   // Disparar evento para atualizar interface
-  window.dispatchEvent(new Event('recursos-updated'));
+  setTimeout(() => {
+    window.dispatchEvent(new Event('recursos-updated'));
+  }, 100);
 };

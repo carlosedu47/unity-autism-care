@@ -25,7 +25,9 @@ const ResourcesSection = () => {
 
   const fetchRecursos = () => {
     const recursos = JSON.parse(localStorage.getItem('recursos') || '[]');
+    console.log('Recursos carregados:', recursos);
     const recursosAtivos = recursos.filter((r: any) => r.ativo);
+    console.log('Recursos ativos:', recursosAtivos);
     setRecursos(recursosAtivos);
   };
 
@@ -126,7 +128,14 @@ const ResourcesSection = () => {
                                 variant="ghost" 
                                 size="sm"
                                 className="flex-shrink-0"
-                                onClick={() => window.open(item.url, '_blank')}
+                                onClick={() => {
+                                  try {
+                                    window.open(item.url, '_blank', 'noopener,noreferrer');
+                                  } catch (error) {
+                                    console.error('Erro ao abrir link:', error);
+                                    window.location.href = item.url;
+                                  }
+                                }}
                               >
                                 <ExternalLink className="w-4 h-4" />
                               </Button>

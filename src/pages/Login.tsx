@@ -74,7 +74,7 @@ const Login = () => {
           <CardTitle>Entrar na Conta</CardTitle>
         </CardHeader>
         <CardContent>
-          <form onSubmit={handleSubmit} className="space-y-4">
+          <form onSubmit={handleSubmit} className="space-y-4" autoComplete="off">
             <div>
               <Label htmlFor="email">Email</Label>
               <Input
@@ -84,6 +84,7 @@ const Login = () => {
                 placeholder="seu@email.com"
                 value={formData.email}
                 onChange={(e) => setFormData({...formData, email: e.target.value})}
+                autoComplete="off"
               />
             </div>
             <div>
@@ -94,6 +95,7 @@ const Login = () => {
                 required
                 value={formData.password}
                 onChange={(e) => setFormData({...formData, password: e.target.value})}
+                autoComplete="new-password"
               />
             </div>
             {error && <p className="text-red-500 text-sm">{error}</p>}
