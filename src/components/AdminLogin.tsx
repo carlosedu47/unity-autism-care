@@ -56,9 +56,7 @@ const AdminLogin = ({ onLogin }: AdminLoginProps) => {
           <Button onClick={handleLogin} className="w-full">
             Entrar
           </Button>
-          <p className="text-xs text-muted-foreground text-center">
-            Senha padrão: admin123
-          </p>
+
         </CardContent>
       </Card>
     </div>

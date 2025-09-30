@@ -24,33 +24,28 @@ const ContactSection = () => {
     }));
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    try {
-      const response = await fetch('http://localhost:3001/api/contato', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData),
-      });
-      
-      if (response.ok) {
-        showSuccess("Mensagem enviada com sucesso! Entraremos em contato em breve.");
-        setFormData({
-          name: "",
-          email: "",
-          phone: "",
-          subject: "",
-          message: ""
-        });
-      } else {
-        showError("Erro ao enviar mensagem. Tente novamente.");
-      }
-    } catch (error) {
-      console.error('Erro:', error);
-      showError("Erro ao enviar mensagem. Tente novamente.");
-    }
+    
+    const contatos = JSON.parse(localStorage.getItem('contatos') || '[]');
+    const novoContato = {
+      id: Date.now(),
+      ...formData,
+      dataEnvio: new Date().toISOString(),
+      lido: false
+    };
+    
+    contatos.push(novoContato);
+    localStorage.setItem('contatos', JSON.stringify(contatos));
+    
+    showSuccess("Mensagem enviada com sucesso! Entraremos em contato em breve.");
+    setFormData({
+      name: "",
+      email: "",
+      phone: "",
+      subject: "",
+      message: ""
+    });
   };
 
   const contactInfo = [
@@ -255,6 +250,40 @@ const ContactSection = () => {
                 >
                   (11) 99999-9999 - Emergência
                 </Button>
+              </CardContent>
+            </Card>
+
+            {/* Testimonial Form */}
+            <Card className="animate-fade-in-up">
+              <CardHeader>
+                <CardTitle className="text-lg">Compartilhe sua História</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <form onSubmit={(e) => {
+                  e.preventDefault();
+                  const formData = new FormData(e.target as HTMLFormElement);
+                  const depoimentos = JSON.parse(localStorage.getItem('depoimentos') || '[]');
+                  const novoDepoimento = {
+                    id: Date.now(),
+                    nome: formData.get('nome'),
+                    email: formData.get('email'),
+                    depoimento: formData.get('depoimento'),
+                    dataEnvio: new Date().toISOString(),
+                    aprovado: false,
+                    visivel: false
+                  };
+                  depoimentos.push(novoDepoimento);
+                  localStorage.setItem('depoimentos', JSON.stringify(depoimentos));
+                  showSuccess('Depoimento enviado! Será analisado pela nossa equipe.');
+                  (e.target as HTMLFormElement).reset();
+                }} className="space-y-3">
+                  <Input name="nome" placeholder="Seu nome" required />
+                  <Input name="email" type="email" placeholder="Seu email (opcional)" />
+                  <Textarea name="depoimento" placeholder="Conte sua história..." required rows={3} />
+                  <Button type="submit" size="sm" className="w-full">
+                    Enviar Depoimento
+                  </Button>
+                </form>
               </CardContent>
             </Card>
 

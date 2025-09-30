@@ -19,6 +19,19 @@ const Login = () => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     
+    // Verificar se são credenciais de admin
+    if (formData.email === "admin@unityautismcare.com" && formData.password === "admin123") {
+      const adminData = {
+        Id: 1,
+        Nome: "Administrador",
+        Email: "admin@unityautismcare.com",
+        Tipo: "Admin"
+      };
+      localStorage.setItem("userAuth", JSON.stringify(adminData));
+      navigate("/dashboard");
+      return;
+    }
+
     if (!validateEmail(formData.email)) {
       setError("Email inválido");
       return;
@@ -29,7 +42,7 @@ const Login = () => {
       return;
     }
 
-    // Buscar no localStorage
+    // Buscar usuários normais no localStorage
     const usuarios = JSON.parse(localStorage.getItem('usuarios') || '[]');
     const usuario = usuarios.find((u: any) => 
       u.email.toLowerCase() === formData.email.toLowerCase() && 
@@ -42,14 +55,10 @@ const Login = () => {
         Id: usuario.id,
         Nome: usuario.nome,
         Email: usuario.email,
-        Tipo: usuario.tipo
+        Tipo: "Usuario"
       };
       localStorage.setItem("userAuth", JSON.stringify(userData));
-      if (usuario.tipo === 'Admin') {
-        navigate("/dashboard");
-      } else {
-        navigate("/");
-      }
+      navigate("/");
     } else {
       setError("Email ou senha incorretos");
     }

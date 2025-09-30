@@ -21,14 +21,26 @@ const Dashboard = () => {
   }, []);
 
   const fetchStats = () => {
-    // Dados mock para dashboard
-    const mockStats = {
-      ContatosPendentes: 5,
-      DepoimentosPendentes: 2,
-      RecursosAtivos: 12,
-      ContatosUltimos30Dias: 23
-    };
-    setStats(mockStats);
+    const contatos = JSON.parse(localStorage.getItem('contatos') || '[]');
+    const recursos = JSON.parse(localStorage.getItem('recursos') || '[]');
+    const depoimentos = JSON.parse(localStorage.getItem('depoimentos') || '[]');
+    
+    const contatosNaoLidos = contatos.filter((c: any) => !c.lido).length;
+    const contatos30Dias = contatos.filter((c: any) => {
+      const dataContato = new Date(c.dataEnvio);
+      const agora = new Date();
+      const diferenca = agora.getTime() - dataContato.getTime();
+      return diferenca <= (30 * 24 * 60 * 60 * 1000);
+    }).length;
+    const recursosAtivos = recursos.filter((r: any) => r.ativo).length;
+    const depoimentosPendentes = depoimentos.filter((d: any) => !d.aprovado).length;
+    
+    setStats({
+      ContatosPendentes: contatosNaoLidos,
+      DepoimentosPendentes: depoimentosPendentes,
+      RecursosAtivos: recursosAtivos,
+      ContatosUltimos30Dias: contatos30Dias
+    });
   };
 
   const handleLogout = () => {
@@ -109,7 +121,7 @@ const Dashboard = () => {
               <p className="text-sm text-muted-foreground mb-4">
                 Visualizar e responder mensagens recebidas
               </p>
-              <Button className="w-full" onClick={() => showInfo('Funcionalidade de gerenciamento de contatos em desenvolvimento')}>Acessar</Button>
+              <Button className="w-full" onClick={() => navigate('/gerenciar-contatos')}>Acessar</Button>
             </CardContent>
           </Card>
 
@@ -124,7 +136,22 @@ const Dashboard = () => {
               <p className="text-sm text-muted-foreground mb-4">
                 Adicionar, editar e organizar recursos
               </p>
-              <Button className="w-full" onClick={() => navigate('/admin')}>Acessar</Button>
+              <Button className="w-full" onClick={() => navigate('/gerenciar-recursos')}>Acessar</Button>
+            </CardContent>
+          </Card>
+
+          <Card className="cursor-pointer hover:shadow-lg transition-shadow">
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <MessageSquare className="w-5 h-5" />
+                Gerenciar Depoimentos
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <p className="text-sm text-muted-foreground mb-4">
+                Aprovar e gerenciar depoimentos
+              </p>
+              <Button className="w-full" onClick={() => navigate('/gerenciar-depoimentos')}>Acessar</Button>
             </CardContent>
           </Card>
 

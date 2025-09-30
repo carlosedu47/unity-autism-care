@@ -19,24 +19,52 @@ const TestimonialsSection = () => {
     fetchStats();
   }, []);
 
-  const fetchTestimonials = async () => {
-    try {
-      const response = await fetch('http://localhost:3001/api/depoimentos');
-      const data = await response.json();
-      setTestimonials(data);
-    } catch (error) {
-      console.error('Erro ao carregar depoimentos:', error);
-    }
+  const fetchTestimonials = () => {
+    const depoimentos = JSON.parse(localStorage.getItem('depoimentos') || '[]');
+    const depoimentosVisiveis = depoimentos
+      .filter((d: any) => d.aprovado && d.visivel)
+      .map((d: any) => ({
+        Nome: d.nome,
+        Cargo: 'Família apoiada',
+        Conteudo: d.depoimento,
+        Avatar: d.nome.charAt(0).toUpperCase()
+      }));
+    setTestimonials(depoimentosVisiveis);
   };
 
-  const fetchStats = async () => {
-    try {
-      const response = await fetch('http://localhost:3001/api/estatisticas');
-      const data = await response.json();
-      setStats(data);
-    } catch (error) {
-      console.error('Erro ao carregar estatísticas:', error);
-    }
+  const fetchStats = () => {
+    const contatos = JSON.parse(localStorage.getItem('contatos') || '[]');
+    const recursos = JSON.parse(localStorage.getItem('recursos') || '[]');
+    const depoimentos = JSON.parse(localStorage.getItem('depoimentos') || '[]');
+    const usuarios = JSON.parse(localStorage.getItem('usuarios') || '[]');
+    
+    const statsData = [
+      {
+        Nome: 'Famílias Atendidas',
+        Valor: usuarios.length + '+',
+        Descricao: 'Famílias cadastradas',
+        Cor: 'autism-blue'
+      },
+      {
+        Nome: 'Recursos Disponíveis',
+        Valor: recursos.filter((r: any) => r.ativo).length,
+        Descricao: 'Materiais e atividades',
+        Cor: 'hope-green'
+      },
+      {
+        Nome: 'Depoimentos',
+        Valor: depoimentos.filter((d: any) => d.aprovado).length,
+        Descricao: 'Histórias de sucesso',
+        Cor: 'warm-orange'
+      },
+      {
+        Nome: 'Contatos Recebidos',
+        Valor: contatos.length + '+',
+        Descricao: 'Mensagens de apoio',
+        Cor: 'primary'
+      }
+    ];
+    setStats(statsData);
   };
 
   return (

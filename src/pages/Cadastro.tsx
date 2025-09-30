@@ -3,8 +3,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { UserPlus, Shield, User } from "lucide-react";
+import { UserPlus } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import { showSuccess, showError } from "@/utils/notifications";
 
@@ -13,8 +12,7 @@ const Cadastro = () => {
     nome: "",
     email: "",
     senha: "",
-    confirmarSenha: "",
-    tipo: "Usuario"
+    confirmarSenha: ""
   });
   const [error, setError] = useState("");
   const navigate = useNavigate();
@@ -60,7 +58,7 @@ const Cadastro = () => {
       nome: formData.nome,
       email: formData.email,
       senha: formData.senha,
-      tipo: formData.tipo,
+      tipo: "Usuario",
       ativo: true,
       dataCriacao: new Date().toISOString()
     };
@@ -130,31 +128,7 @@ const Cadastro = () => {
                 onChange={(e) => setFormData({...formData, confirmarSenha: e.target.value})}
               />
             </div>
-            <div>
-              <Label htmlFor="tipo">Tipo de Conta</Label>
-              <Select value={formData.tipo} onValueChange={(value) => setFormData({...formData, tipo: value})}>
-                <SelectTrigger>
-                  <SelectValue placeholder="Selecione o tipo" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="Usuario">
-                    <div className="flex items-center gap-2">
-                      <User className="w-4 h-4" />
-                      Usuário Normal
-                    </div>
-                  </SelectItem>
-                  <SelectItem value="Admin">
-                    <div className="flex items-center gap-2">
-                      <Shield className="w-4 h-4" />
-                      Administrador
-                    </div>
-                  </SelectItem>
-                </SelectContent>
-              </Select>
-              <p className="text-xs text-muted-foreground mt-1">
-                {formData.tipo === 'Admin' ? 'Pode gerenciar conteúdo e usuários' : 'Acesso básico ao sistema'}
-              </p>
-            </div>
+
             {error && <p className="text-red-500 text-sm">{error}</p>}
             <Button type="submit" className="w-full">Cadastrar</Button>
           </form>
